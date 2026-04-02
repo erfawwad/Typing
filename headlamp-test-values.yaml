@@ -1,0 +1,21 @@
+replicaCount: 1
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  hosts:
+    - host: headlamp-test.reachware.com
+      paths:
+        - path: /
+          type: Prefix
+  tls:
+    - secretName: headlamp-test-tls
+      hosts:
+        - headlamp-test.reachware.com
+
+service:
+  type: ClusterIP
+  port: 80
